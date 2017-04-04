@@ -1,0 +1,12 @@
+{
+    "require": {
+        "catfan/Medoo": "^1.2",
+      "gregwar/captcha": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+             "Core\\": "Core/",
+             "App\\": "App/"
+        }
+    }
+}

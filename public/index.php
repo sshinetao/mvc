@@ -28,8 +28,9 @@ $router = new Core\Router();
 // Add the routes
 $router->add('', ['namespace' => 'Home','controller' => 'Index', 'action' => 'index']);
 $router->add('admin/index/index', ['namespace' => 'Admin','controller' => 'Index', 'action' => 'index']);
-$router->add('index/buildCaptcha', ['controller' => 'Index', 'action' => 'buildCaptcha']);
+$router->add('index/list', ['namespace' => 'Home','controller' => 'Index', 'action' => 'list']);
 $router->add('User/test', ['controller' => 'User', 'action' => 'test']);
+$router->add('user/buildCaptcha', ['controller' => 'Index', 'action' => 'buildCaptcha']);
 $router->add('User/mail', ['controller' => 'User', 'action' => 'mail']);
 $router->add('User/login', ['controller' => 'User', 'action' => 'login']);
 $router->add('User/dologin', ['controller' => 'User', 'action' => 'dologin']);

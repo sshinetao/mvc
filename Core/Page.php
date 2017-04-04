@@ -28,7 +28,7 @@ class Page{
     protected $subPages;    //每页显示条数
     protected $href;        //连接
     protected $page_arr=array();    //保存生成的页码 键页码 值为连接
-
+    protected $url;
     /**
      * __construct  构造函数（获取分页所需参数）
      * @param int $count     总条数
@@ -50,6 +50,7 @@ class Page{
             $this->href=$href;
         }
         $this->construct_Pages();
+
     }
 
     /**
@@ -76,35 +77,66 @@ class Page{
      * 样式 共45条记录,每页显示10条,当前第1/4页 [首页] [上页] [1] [2] [3] .. [下页] [尾页]
      * @return string
      */
-    protected function pageStyle1(){
+    protected function pageStyle1() {
         /* 构造普通模式的分页
         共4523条记录,每页显示10条,当前第1/453页 [首页] [上页] [1] [2] [3] .. [下页] [尾页]
         */
-        $pageStr='共'.$this->count.'条记录，每页显示'.$this->subPages.'条';
-        $pageStr.='当前第'.$this->currPage.'/'.$this->countPages.'页 ';
+        $pageStr = '<nav aria-label="Page navigation">';
+        $pageStr .= ' <ul class="pagination">';
+        $pageStr .= '共' . $this->count . '条记录，每页显示' . $this->subPages . '条';
+        $pageStr .= '当前第' . $this->currPage . '/' . $this->countPages . '页 <br>';
 
         $_GET['page'] = 1;
-        $pageStr.='<span>[<a href="'.$this->href.'?'.http_build_query($_GET).'">首页</a>] </span>';
+
+        $this->url = urldecode(http_build_query($_GET));
+        $this->url = str_replace("=&", "&", $this->url);
+        if($this->currPage==$_GET['page']){
+            $pageStr .= '<li class="disabled"><a href="#">首页</a></li>';
+        }else{
+            $pageStr .= '<li><a href="' . $this->href . '?' . $this->url . '">首页</a></li>';
+        }
+
         //如果当前页不是第一页就显示上页
-        if($this->currPage>1){
-            $_GET['page'] = $this->currPage-1;
-            $pageStr.='<span>[<a href="'.$this->href.'?'.http_build_query($_GET).'">上页</a>] </span>';
+        if ($this->currPage > 1) {
+            $_GET['page'] = $this->currPage - 1;
+            $this->url = urldecode(http_build_query($_GET));
+            $this->url = str_replace("=&", "&", $this->url);
+            $pageStr .= '<li><a href="' . $this->href . '?' . $this->url . '">上页</a> </li>';
         }
 
         foreach ($this->page_arr as $k => $v) {
             $_GET['page'] = $k;
-            $pageStr.='<span>[<a href="'.$v.'">'.$k.'</a>] </span>';
+            $this->url = urldecode(http_build_query($_GET));
+            $this->url = str_replace("=&", "&", $this->url);
+
+            if ($this->currPage == $k) {
+                $pageStr .= '<li class="active"><a href="#">' . $k . '<span class="sr-only">(current)</span></a> </li>';
+            } else {
+                $pageStr .= '<li><a href="' . $v . '">' . $k . '</a> </li>';
+            }
         }
+
 
         //如果当前页小于总页数就显示下一页
         if($this->currPage<$this->countPages){
             $_GET['page'] = $this->currPage+1;
-            $pageStr.='<span>[<a href="'.$this->href.'?'.http_build_query($_GET).'">下页</a>] </span>';
+            $this->url =  urldecode(http_build_query($_GET));
+            $this->url = str_replace("=&","&",$this->url);
+            $pageStr.='<li><a href="'.$this->href.'?'.$this->url.'">下页</a> </li>';
         }
 
         $_GET['page'] = $this->countPages;
-        $pageStr.='<span>[<a href="'.$this->href.'?'.http_build_query($_GET).'">尾页</a>] </span>';
+        $this->url =  urldecode(http_build_query($_GET));
+        $this->url = str_replace("=&","&",$this->url);
+        if($this->currPage!=$_GET['page']) {
+            $pageStr.='<li><a href="'.$this->href.'?'.$this->url.'">尾页</a> </li>';
+        }else{
+            $pageStr.='<li class="disabled"><a href="#" aria-label="Next">尾页</a></li>';
+        }
 
+
+        $pageStr.='</ul>';
+        $pageStr.='</nav>';
         return $pageStr;
     }
 
@@ -133,7 +165,9 @@ class Page{
 
         for ($i=$left; $i <= $right; $i++) {
             $_GET['page'] = $i;
-            $this->page_arr[$i]=$this->href.'?'.http_build_query($_GET);
+            $this->url =  urldecode(http_build_query($_GET));
+            $this->url = str_replace("=&","&",$this->url);
+            $this->page_arr[$i]=$this->href.'?'.$this->url;
         }
     }
 }

@@ -9,7 +9,8 @@ namespace App\Home\Controllers;
  */
 use \Core\View;
 use Gregwar\Captcha\CaptchaBuilder;
-
+use Nette\Mail\Message;
+use Nette\Mail\SmtpMailer;
 class Index extends \Core\Controller {
 
     /**
@@ -35,29 +36,10 @@ class Index extends \Core\Controller {
         $this->assign('list', $datas);
         $this->assign('getPages', $p->getPages());
         $this->assign('showPages', $p->showPages(1));
+/*        $this->mail($p->showPages());*/
         $this->render('Index/index');
-    }
 
-    public function buildCaptcha(){
-
-        ob_clean();
-        $builder = new CaptchaBuilder;
-        $builder->build();
-        $_SESSION['phrase'] = $builder->getPhrase();
-        header("Cache-Control: no-cache, must-revalidate");
-        header('Content-type: image/jpeg');
-        $builder->output();
     }
 
 
-    public function test(){
-
-        if($_SESSION['phrase']==$_POST['code']){
-            echo 1;
-
-        }
-        else {
-            echo 0;
-        }
-    }
 }

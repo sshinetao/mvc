@@ -5,7 +5,8 @@
  *
  * PHP version 7.0
  */
-session_start();
+if (!session_id()) session_start();
+
 /**
  * Composer
  */
@@ -21,12 +22,19 @@ set_exception_handler('Core\Error::exceptionHandler');
 /**
  * Routing
  */
+
 $router = new Core\Router();
 
 // Add the routes
 $router->add('', ['namespace' => 'Home','controller' => 'Index', 'action' => 'index']);
 $router->add('admin/index/index', ['namespace' => 'Admin','controller' => 'Index', 'action' => 'index']);
 $router->add('index/buildCaptcha', ['controller' => 'Index', 'action' => 'buildCaptcha']);
-$router->add('index/test', ['controller' => 'Index', 'action' => 'test']);
+$router->add('User/test', ['controller' => 'User', 'action' => 'test']);
+$router->add('User/mail', ['controller' => 'User', 'action' => 'mail']);
+$router->add('User/login', ['controller' => 'User', 'action' => 'login']);
+$router->add('User/dologin', ['controller' => 'User', 'action' => 'dologin']);
+$router->add('User/logout', ['controller' => 'User', 'action' => 'logout']);
+$router->add('User/register', ['controller' => 'User', 'action' => 'register']);
+
 //$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 $router->dispatch($_SERVER['QUERY_STRING']);

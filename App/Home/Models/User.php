@@ -2,11 +2,8 @@
 
 namespace App\Home\Models;
 
-/**
- * Example user model
- *
- * PHP version 7.0
- */
+
+use Medoo\Medoo;
 class User extends \Core\Model {
 
 	/**
@@ -14,5 +11,10 @@ class User extends \Core\Model {
 	 *
 	 * @return array
 	 */
+    public function getUser(){
+        $account = new Medoo();
+
+        return $account;
+    }
 
 }

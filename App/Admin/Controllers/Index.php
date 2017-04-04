@@ -19,7 +19,7 @@ class Index extends \Core\Controller {
      */
     public function indexAction() {
 
-        $User = new \App\Models\User();
+        $User = new \App\Home\Models\User();
         //分页
         $pagenum = isset($_GET['page']) ? $_GET['page'] : 1;
         $page_row =5; //每页显示条数

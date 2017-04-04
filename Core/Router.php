@@ -209,7 +209,9 @@ class Router
     {
 
         if (array_key_exists('namespace', $this->params)) {
-            $namespace = 'App\\'. $this->params['namespace'] . '\\Controllers\\';
+            $namespace = 'App\\'. $this->params['namespace']. '\\Controllers\\';
+        }else{
+            $namespace = 'App\\Home\\Controllers\\';
         }
 
         return $namespace;

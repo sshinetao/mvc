@@ -19,7 +19,7 @@ Configuration settings are stored in the [App/Config.php](App/Config.php) class.
 
 ## Routing
 
-The [Router](Core/Router.php) translates URLs into controllers and actions. Routes are added in the [front controller](public/index.php). A sample home route is included that routes to the `index` action in the [Home controller](App/Admin/Controllers/Home.php).
+The [Router](Core/Router.php) translates URLs into controllers and actions. Routes are added in the [front controller](public/index.php). A sample home route is included that routes to the `index` action in the [Home controller](App/Home/Controllers/Index.php).
 
 Routes are added with the `add` method. You can add fixed URL routes, and specify the controller and action, like this:
 
@@ -89,20 +89,12 @@ protected function after()
 Views are used to display information (normally HTML). View files go in the `App/Views` folder. Views can be in one of two formats: standard PHP, but with just enough PHP to show the data. No database access or anything like that should occur in a view file. You can render a standard PHP view in a controller, optionally passing in variables, like this:
 
 ```php
-View::render('Home/index.php', [
-    'name'    => 'Dave',
-    'colours' => ['red', 'green', 'blue']
-]);
+$this->render('Index/index.php' ,'Home');
 ```
 
-The second format uses the [Twig](http://twig.sensiolabs.org/) templating engine. Using Twig allows you to have simpler, safer templates that can take advantage of things like [template inheritance](http://twig.sensiolabs.org/doc/templates.html#template-inheritance). You can render a Twig template like this:
-
-```php
-View::renderTemplate('Home/index.html', [
-    'name'    => 'Dave',
-    'colours' => ['red', 'green', 'blue']
-]);
-```
+ ```php
+ $this->assign('data' ,$data);
+ ```
 
 A sample Twig template is included in [App/Views/Home/index.html](App/Home/Views/Home/index.html) that inherits from the base template in [App/Views/base.html](App/Home/Views/base.html).
 

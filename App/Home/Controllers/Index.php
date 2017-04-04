@@ -41,7 +41,7 @@ class Index extends \Core\Controller {
         //$page = $page->showpage();
         $this->assign('list', $datas);
         $this->assign('getPages', $p->getPages());
-        $this->assign('showPages', $p->showPages(1));
+        $this->assign('showPages', $p->showPages(4));
         $this->render('Index/list');
 
     }

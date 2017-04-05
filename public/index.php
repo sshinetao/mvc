@@ -5,7 +5,9 @@
  *
  * PHP version 7.0
  */
-if (!session_id()) session_start();
+if (!session_id()) {
+	session_start();
+}
 
 /**
  * Composer
@@ -26,9 +28,9 @@ set_exception_handler('Core\Error::exceptionHandler');
 $router = new Core\Router();
 
 // Add the routes
-$router->add('', ['namespace' => 'Home','controller' => 'Index', 'action' => 'index']);
-$router->add('admin/index/index', ['namespace' => 'Admin','controller' => 'Index', 'action' => 'index']);
-$router->add('index/datalist', ['namespace' => 'Home','controller' => 'Index', 'action' => 'datalist']);
+$router->add('', ['namespace' => 'Home', 'controller' => 'Index', 'action' => 'index']);
+$router->add('admin/index/index', ['namespace' => 'Admin', 'controller' => 'Index', 'action' => 'index']);
+$router->add('index/datalist', ['namespace' => 'Home', 'controller' => 'Index', 'action' => 'datalist']);
 $router->add('User/test', ['controller' => 'User', 'action' => 'test']);
 $router->add('user/buildCaptcha', ['controller' => 'Index', 'action' => 'buildCaptcha']);
 $router->add('User/mail', ['controller' => 'User', 'action' => 'mail']);

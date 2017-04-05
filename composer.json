@@ -2,7 +2,8 @@
     "require": {
         "catfan/Medoo": "^1.2",
         "gregwar/captcha": "dev-master",
-        "nette/mail": "*"
+        "nette/mail": "*",
+        "xiaoler/blade":"*"
     },
     "autoload": {
         "psr-4": {

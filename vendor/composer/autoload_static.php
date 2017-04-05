@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit7c0baa335460178fecca298af007aa1c
 {
+    public static $files = array (
+        'e1edc6b39e340029dfa1d72c228b8497' => __DIR__ . '/..' . '/xiaoler/blade/src/helpers.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'X' => 
+        array (
+            'Xiaoler\\Blade\\' => 14,
+        ),
         'M' => 
         array (
             'Medoo\\' => 6,
@@ -26,6 +34,10 @@ class ComposerStaticInit7c0baa335460178fecca298af007aa1c
     );
 
     public static $prefixDirsPsr4 = array (
+        'Xiaoler\\Blade\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/xiaoler/blade/src',
+        ),
         'Medoo\\' => 
         array (
             0 => __DIR__ . '/..' . '/catfan/medoo/src',
@@ -36,11 +48,11 @@ class ComposerStaticInit7c0baa335460178fecca298af007aa1c
         ),
         'Core\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Core',
+            0 => __DIR__ . '/../..' . '/core',
         ),
         'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/App',
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

@@ -21,10 +21,16 @@ class View {
 	public function assign($name, $value) {
 		$this->variables[$name] = $value;
 	}
-	public function render($view,$module) {
+	public function render($view, $module) {
+
+		//echo $_SERVER['QUERY_STRING'];
+		//$router->dispatch($_SERVER['QUERY_STRING']);
+		//echo MODULE . CONTROLLER . ACTION;
+		//var_dump($router);
+
 		extract($this->variables);
 		$route = new Router();
-		$file = dirname(__DIR__) . "/App/".$module."/Views/".$view.".html"; // relative to Core directory
+		$file = dirname(__DIR__) . "/app/" . $module . "/views/" . $view . ".html"; // relative to Core directory
 
 		if (is_readable($file)) {
 			require $file;
@@ -41,14 +47,25 @@ class View {
 	 *
 	 * @return void
 	 */
-	public static function renderTemplate($template, $args = []) {
+	//echo MODULE . CONTROLLER . ACTION;
+	public static function renderTemplate($template = ACTION . ".html", $args = []) {
 		static $twig = null;
 
 		if ($twig === null) {
-			$loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/App/Views');
+			$loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . "/app/" . MODULE . "/views/" . CONTROLLER . "/");
 			$twig = new \Twig_Environment($loader);
 		}
 
 		echo $twig->render($template, $args);
+	}
+	public static function getView() {
+		$path = [dirname(__DIR__) . "/app/" . MODULE . "/views/" . CONTROLLER];
+		$cachePath = dirname(__DIR__) . '/app/cache';
+		$compiler = new \Xiaoler\Blade\Compilers\BladeCompiler($cachePath);
+		$engine = new \Xiaoler\Blade\Engines\CompilerEngine($compiler);
+		$finder = new \Xiaoler\Blade\FileViewFinder($path);
+		$finder->addExtension('html');
+		$factory = new \Xiaoler\Blade\Factory($engine, $finder);
+		return $factory;
 	}
 }

@@ -43,8 +43,8 @@ class Index extends \Core\Controller {
 		//$this->assign('getPages', $p->getPages());
 		//$this->assign('showPages', $p->showPages(4));
 		//$this->render('Index/list');
-		View::renderTemplate("list.html", $data);
-
+		//View::renderTemplate("list.html", $data);
+		echo View::getView()->make('list', $data)->render();
 	}
 
 }

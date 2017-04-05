@@ -25,7 +25,7 @@ class Index extends \Core\Controller {
 
     }
 
-    public function list(){
+    public function datalist(){
         $User = new \App\Home\Models\User();
         //分页
         $pagenum = isset($_GET['page']) ? $_GET['page'] : 1;
